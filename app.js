@@ -62,7 +62,7 @@ app.post('/send', (req, res) => {
     let mailOptions = {
       from: `"Nodemailer Contact" <${config.smtpEmail}>`, // Sender address
         to: `${config.receivers}`, // List of receivers
-        subject: `${config.subject}`, // Subject line
+        subject: 'Some subject..', // Subject line
         text: 'Hello World?', // Plain text body
         html: output // HTML body
     };
