@@ -24,6 +24,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/send', (req, res) => {
+
+  if(!req.body.name || !req.body.email || !req.body.subject || !req.body.message || !req.body.phone){
+    res.render('contact', {msg: 'Error. All fields are required.', display: 'display: block;', alertClass: 'alert alert-danger'});
+
+    return;
+  }
+
   const output = `
     <p>You have a new message from Nodemailer.</p>
     <h3>Contact details</h3>
@@ -39,8 +46,8 @@ app.post('/send', (req, res) => {
 
   // Create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
+        host: `${config.host}`,
+        port: 587, // default not secure smtp port, use 465 for SSL
         secure: false, // True for 465, false for other ports
         auth: {
             user: `${config.smtpEmail}`,
@@ -53,7 +60,7 @@ app.post('/send', (req, res) => {
 
     // Setup email data with unicode symbols
     let mailOptions = {
-      from: `"Nodemailer Contact" ${config.email}`, // Sender address
+      from: `"Nodemailer Contact" <${config.smtpEmail}>`, // Sender address
         to: `${config.receivers}`, // List of receivers
         subject: `${config.subject}`, // Subject line
         text: 'Hello World?', // Plain text body
@@ -65,12 +72,9 @@ app.post('/send', (req, res) => {
         if (error) {
             return console.log(error);
         }
-        console.log('Message sent: %s', info.messageId);
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-        res.render('contact', { msg:'Email has been sent!', display:'display: block;' });
+        res.render('contact', { msg:'Email has been sent!', display:'display: block;', alertClass: 'alert alert-success' });
     });
-
 });
 
 app.listen(3000, () => {
