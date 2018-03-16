@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 app.post('/send', (req, res) => {
 
   if(!req.body.name || !req.body.email || !req.body.subject || !req.body.message || !req.body.phone){
-    res.render('contact', {msg: 'Error. All fields are required.', display: 'display: block;', alertClass: 'alert alert-danger'});
+    res.render('contact', {msg: 'Error. All fields are required.', alertClass: 'alert alert-danger' });
 
     return;
   }
@@ -73,10 +73,10 @@ app.post('/send', (req, res) => {
             return console.log(error);
         }
 
-        res.render('contact', { msg:'Email has been sent!', display:'display: block;', alertClass: 'alert alert-success' });
+        res.render('contact', { msg:'Email has been sent!', alertClass:'alert alert-success', slider:'slideDown();', display:'display: block;' });
     });
 });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000...');
+app.listen(4000, () => {
+  console.log('Server started on port 4000...');
 });
