@@ -1,7 +1,7 @@
 ## Node.js app for sending emails
 
 ## Requirements
-### [NodeJS](https://nodejs.org/en/) and [MongoDB](https://nodejs.org/en/)
+### [NodeJS](https://nodejs.org/en/) and [MongoDB](https://www.mongodb.com/download-center/community)
 
 ## How to start
 
